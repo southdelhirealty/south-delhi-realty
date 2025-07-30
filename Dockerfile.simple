@@ -34,7 +34,7 @@ RUN chown -R node:nodejs /app
 USER node
 
 # Expose port
-EXPOSE 7822
+EXPOSE 7922
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \

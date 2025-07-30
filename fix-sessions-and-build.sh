@@ -79,7 +79,7 @@ else
     docker run -d \
         --name southdelhirealty-app \
         --restart unless-stopped \
-        -p 7822:7822 \
+        -p 7922:7922 \
         --env-file .env \
         -e SESSION_STORE_TYPE=database \
         -e SESSION_SECURE_COOKIES=false \
@@ -101,7 +101,7 @@ if docker ps --filter "name=southdelhirealty-app" --format "table {{.Names}}\t{{
     # Test health endpoint
     echo "🏥 Testing health endpoint..."
     for i in {1..5}; do
-        if curl -s http://localhost:7822/health >/dev/null 2>&1; then
+        if curl -s http://localhost:7922/health >/dev/null 2>&1; then
             echo "✅ Health check passed"
             break
         else

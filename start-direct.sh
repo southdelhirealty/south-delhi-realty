@@ -33,8 +33,8 @@ echo "🏗️  Building application..."
 npm run build
 
 # Start the application
-echo "🚀 Starting application on port 7822..."
-echo "🌐 Application will be available at: http://localhost:7822"
+echo "🚀 Starting application on port 7922..."
+echo "🌐 Application will be available at: http://localhost:7922"
 echo "📊 Press Ctrl+C to stop the application"
 echo ""
 

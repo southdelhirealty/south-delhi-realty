@@ -38,7 +38,7 @@ WORKDIR /app
 
 # Set environment to production
 ENV NODE_ENV=production
-ENV PORT=7822
+ENV PORT=7922
 
 # Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
@@ -70,11 +70,11 @@ RUN mkdir -p /app/logs /app/uploads && chown -R nodeuser:nodejs /app/logs /app/u
 USER nodeuser
 
 # Expose the port the app runs on
-EXPOSE 7822
+EXPOSE 7922
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "const http = require('http'); const options = { host: 'localhost', port: process.env.PORT || 7822, path: '/health', timeout: 2000 }; const req = http.request(options, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => process.exit(1)); req.end();"
+  CMD node -e "const http = require('http'); const options = { host: 'localhost', port: process.env.PORT || 7922, path: '/health', timeout: 2000 }; const req = http.request(options, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => process.exit(1)); req.end();"
 
 # Start the application using tsx directly
 CMD ["tsx", "server/index.ts"]

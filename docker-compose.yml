@@ -6,9 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      network: host # Add this line to fix the network issue
     container_name: south-delhi-realty-app
     ports:
-      - "7822:7822"
+      - "7922:7922"
     environment:
       # Database Configuration
       - DB_HOST=${DB_HOST}
@@ -16,35 +17,35 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
       - DB_PORT=${DB_PORT}
-      
+
       # Cloudinary Configuration
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      
+
       # Session Configuration
       - SESSION_SECRET=${SESSION_SECRET}
       - SESSION_STORE_TYPE=${SESSION_STORE_TYPE}
       - SESSION_MAX_AGE=${SESSION_MAX_AGE}
       - SESSION_SECURE_COOKIES=${SESSION_SECURE_COOKIES}
       - SSL_ENABLED=${SSL_ENABLED}
-      
+
       # Server Configuration
       - PORT=${PORT}
       - NODE_ENV=${NODE_ENV}
       - LOG_LEVEL=${LOG_LEVEL}
-      
+
       # Security
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
-      
+
       # Client Configuration
       - CLIENT_URL=${CLIENT_URL}
-      
+
       # Google OAuth Configuration
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
-      
+
       # Email Configuration
       - EMAIL_HOST=${EMAIL_HOST}
       - EMAIL_PORT=${EMAIL_PORT}
@@ -65,7 +66,13 @@ services:
     depends_on:
       - mysql
     healthcheck:
-      test: ["CMD", "node", "-e", "const http = require('http'); const options = { host: 'localhost', port: process.env.PORT || 7822, path: '/health', timeout: 2000 }; const req = http.request(options, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => process.exit(1)); req.end();"]
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "const http = require('http'); const options = { host: 'localhost', port: process.env.PORT || 7922, path: '/health', timeout: 2000 }; const req = http.request(options, (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => process.exit(1)); req.end();",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -94,7 +101,17 @@ services:
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD}"]
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${DB_PASSWORD}",
+        ]
       interval: 30s
       timeout: 10s
       retries: 5

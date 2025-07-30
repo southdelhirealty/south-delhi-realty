@@ -146,8 +146,8 @@ print_info "Waiting for application to start..."
 sleep 10
 
 # Test if the application is responding
-if curl -f http://localhost:7822 > /dev/null 2>&1; then
-    print_status "Application is responding on port 7822"
+if curl -f http://localhost:7922 > /dev/null 2>&1; then
+    print_status "Application is responding on port 7922"
 else
     print_warning "Application may not be responding. Check PM2 logs:"
     print_info "Run: pm2 logs south-delhi-realty"
@@ -164,7 +164,7 @@ print_info "To monitor the application, run: pm2 monit"
 echo ""
 print_status "Deployment completed successfully!"
 echo ""
-print_info "Application should be available at: http://localhost:7822"
+print_info "Application should be available at: http://localhost:7922"
 print_info "If using nginx, make sure your reverse proxy is configured correctly"
 
 # Step 12: Show important commands

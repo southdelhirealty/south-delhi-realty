@@ -60,21 +60,21 @@ check_status() {
     echo ""
     echo "🔍 Checking application status..."
     
-    # Check if port 7822 is in use
-    if netstat -tlnp 2>/dev/null | grep -q ":7822"; then
-        echo "✅ Application appears to be running on port 7822"
+    # Check if port 7922 is in use
+    if netstat -tlnp 2>/dev/null | grep -q ":7922"; then
+        echo "✅ Application appears to be running on port 7922"
         
         # Try to access health endpoint
         if command_exists curl; then
             echo "🏥 Testing health endpoint..."
-            if curl -s http://localhost:7822/health >/dev/null; then
+            if curl -s http://localhost:7922/health >/dev/null; then
                 echo "✅ Health check passed"
             else
                 echo "⚠️  Health check failed"
             fi
         fi
     else
-        echo "❌ No application found running on port 7822"
+        echo "❌ No application found running on port 7922"
     fi
 }
 

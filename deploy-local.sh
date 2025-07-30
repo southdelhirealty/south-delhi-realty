@@ -53,5 +53,5 @@ else
 fi
 
 echo "✅ Deployment completed successfully!"
-echo "🌐 Application should be running on port 7822"
+echo "🌐 Application should be running on port 7922"
 echo "📝 Check logs in the logs/ directory"
